@@ -3,6 +3,7 @@ const {
     getClicksOverTime,
     getClicksByGender,
     getClicksByAgeGroup,
+    getClicksOverTimeByFeature,
 } = require('../models/analyticsModel');
 
 /**
@@ -50,4 +51,15 @@ const getAnalytics = async (req, res) => {
     });
 };
 
-module.exports = { getAnalytics };
+/**
+ * GET /api/analytics/trend/:feature
+ * Returns daily click counts for a specific feature.
+ */
+const getFeatureTrend = async (req, res) => {
+    const { feature } = req.params;
+    const days = req.query.days ? Number(req.query.days) : 90;
+    const data = await getClicksOverTimeByFeature(feature, { days });
+    res.status(200).json(data);
+};
+
+module.exports = { getAnalytics, getFeatureTrend };

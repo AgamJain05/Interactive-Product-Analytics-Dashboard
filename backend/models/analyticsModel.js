@@ -83,4 +83,22 @@ const getClicksByAgeGroup = async () => {
     return result.rows.map((r) => ({ ageGroup: r.age_group, count: Number(r.count) }));
 };
 
-module.exports = { getClicksByFeature, getClicksOverTime, getClicksByGender, getClicksByAgeGroup };
+/**
+ * Daily click totals for a specific feature over the last N days.
+ * Returns: [{ date: 'YYYY-MM-DD', count }]
+ */
+const getClicksOverTimeByFeature = async (feature, { days = 90 } = {}) => {
+    const result = await query(
+        `SELECT TO_CHAR(DATE_TRUNC('day', clicked_at), 'YYYY-MM-DD') AS date,
+                COUNT(*) AS count
+         FROM   feature_clicks
+         WHERE  feature = $1
+           AND  clicked_at >= NOW() - INTERVAL '${Number(days)} days'
+         GROUP  BY DATE_TRUNC('day', clicked_at)
+         ORDER  BY date ASC`,
+        [feature]
+    );
+    return result.rows.map((r) => ({ date: r.date, count: Number(r.count) }));
+};
+
+module.exports = { getClicksByFeature, getClicksOverTime, getClicksByGender, getClicksByAgeGroup, getClicksOverTimeByFeature };

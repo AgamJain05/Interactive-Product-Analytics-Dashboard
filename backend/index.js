@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const healthRouter = require('./routes/health');
 const authRouter = require('./routes/auth');
 const analyticsRouter = require('./routes/analytics');
+const trackRouter = require('./routes/track');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use('/api/health', healthRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/analytics', analyticsRouter);
+app.use('/api/track', trackRouter);
 
 // ─── 404 Fallback ────────────────────────────────────────────────────────────
 app.use((req, res) => {
