@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 const healthRouter = require('./routes/health');
+const authRouter = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // ─── Routes ──────────────────────────────────────────────────────────────────
 app.use('/api/health', healthRouter);
+app.use('/api/auth', authRouter);
 
 // ─── 404 Fallback ────────────────────────────────────────────────────────────
 app.use((req, res) => {
