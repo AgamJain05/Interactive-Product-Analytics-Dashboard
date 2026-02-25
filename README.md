@@ -143,7 +143,7 @@ curl http://localhost:5000/api/health
 **Axios interceptors** — A single Axios instance (`axiosInstance.js`) centralizes the base URL, `Content-Type` header, and JWT injection. This eliminates boilerplate in every component that calls the API, and gives a single place to handle 401 responses globally.
 
 
-**Live Demo:** `<your-deployed-url>`
+**Live Demo:** https://vigilityproject.netlify.app
 
 ## Scaling to 1 Million Write-Events per Minute
 
