@@ -1,0 +1,150 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   FILTERS PANEL
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.filters-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    padding: var(--sp-5) var(--sp-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+}
+
+/* ─── Header ────────────────────────────────────────────────────────────── */
+.filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filters-title {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: var(--text-base);
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.filters-actions {
+    display: flex;
+    gap: var(--sp-2);
+}
+
+.btn-apply {
+    padding: var(--sp-2) var(--sp-5);
+    border-radius: var(--radius-sm);
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    font-size: var(--text-sm);
+}
+
+.btn-apply:hover {
+    background: var(--accent-hover);
+}
+
+.btn-reset {
+    padding: var(--sp-2) var(--sp-5);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: var(--text-sm);
+    border: 1px solid var(--border-strong);
+}
+
+.btn-reset:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
+}
+
+/* ─── Filter fields row ─────────────────────────────────────────────────── */
+.filters-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-4);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+}
+
+.filter-group label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+}
+
+.filter-input {
+    width: 100%;
+}
+
+/* Override react-datepicker wrapper to take full width */
+.filter-group .react-datepicker-wrapper {
+    width: 100%;
+}
+
+/* ─── Badges ────────────────────────────────────────────────────────────── */
+.filter-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1);
+    padding: var(--sp-1) var(--sp-3);
+    border-radius: var(--radius-full);
+    background: rgba(99, 102, 241, 0.15);
+    color: var(--accent-hover);
+    font-size: var(--text-xs);
+    font-weight: 500;
+}
+
+.badge-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--accent-hover);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+}
+
+.badge-remove:hover {
+    background: rgba(99, 102, 241, 0.3);
+}
+
+/* ─── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .filters-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .filters-row {
+        grid-template-columns: 1fr;
+    }
+
+    .filters-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--sp-3);
+    }
+}

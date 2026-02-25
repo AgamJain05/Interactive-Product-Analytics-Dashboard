@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../api/axiosInstance';
 import { useAuth } from '../context/AuthContext';
+import './Auth.css';
 
 const Register = () => {
     const { login } = useAuth();
@@ -28,43 +29,97 @@ const Register = () => {
             login(data.token, data.user);
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'Registration failed.');
+            setError(err.response?.data?.message || 'Registration failed. Please try again.');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div>
-            <h1>Create Account</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username</label>
-                    <input name="username" value={form.username} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input name="password" type="password" value={form.password} onChange={handleChange} required />
-                </div>
-                <div>
-                    <label>Age (optional)</label>
-                    <input name="age" type="number" value={form.age} onChange={handleChange} />
-                </div>
-                <div>
-                    <label>Gender (optional)</label>
-                    <select name="gender" value={form.gender} onChange={handleChange}>
-                        <option value="">Prefer not to say</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Registering…' : 'Register'}
-                </button>
-            </form>
-            <p>Already have an account? <Link to="/login">Login</Link></p>
+        <div className="auth-page">
+            <div className="auth-card fade-in">
+                <h1>Create Account</h1>
+                <p className="auth-subtitle">Join the analytics dashboard</p>
+
+                <form className="auth-form" onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="reg-username">Username</label>
+                        <input
+                            id="reg-username"
+                            className="form-input"
+                            name="username"
+                            value={form.username}
+                            onChange={handleChange}
+                            placeholder="Choose a username"
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="reg-password">Password</label>
+                        <input
+                            id="reg-password"
+                            className="form-input"
+                            name="password"
+                            type="password"
+                            value={form.password}
+                            onChange={handleChange}
+                            placeholder="Create a password"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-row">
+                        <div className="form-group">
+                            <label htmlFor="reg-age">Age <span style={{ color: 'var(--text-muted)' }}>(optional)</span></label>
+                            <input
+                                id="reg-age"
+                                className="form-input"
+                                name="age"
+                                type="number"
+                                min="1"
+                                max="120"
+                                value={form.age}
+                                onChange={handleChange}
+                                placeholder="Your age"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="reg-gender">Gender <span style={{ color: 'var(--text-muted)' }}>(optional)</span></label>
+                            <select
+                                id="reg-gender"
+                                className="form-input"
+                                name="gender"
+                                value={form.gender}
+                                onChange={handleChange}
+                            >
+                                <option value="">Prefer not to say</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {error && (
+                        <div className="auth-error">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <circle cx="12" cy="12" r="10" /><line x1="15" y1="9" x2="9" y2="15" /><line x1="9" y1="9" x2="15" y2="15" />
+                            </svg>
+                            {error}
+                        </div>
+                    )}
+
+                    <button className="btn-primary" type="submit" disabled={loading}>
+                        {loading ? (
+                            <><span className="spinner" style={{ width: 16, height: 16, borderWidth: 2 }} /> Creating account…</>
+                        ) : 'Create Account'}
+                    </button>
+                </form>
+
+                <p className="auth-footer">
+                    Already have an account? <Link to="/login">Sign in</Link>
+                </p>
+            </div>
         </div>
     );
 };
